@@ -23,3 +23,8 @@ def _Error(status_code: int, error_code: str, detail: str):
         (HTTPExceptionWithCode,),
         {"status_code": status_code, "error_code": error_code, "detail": detail},
     )
+
+
+HouseKeeperNotFoundError = _Error(
+    status_code=404, error_code="DEMO-001", detail="House keeper not found"
+)

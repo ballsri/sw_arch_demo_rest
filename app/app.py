@@ -6,6 +6,11 @@ from fastapi.responses import JSONResponse
 
 import app.config.config as cfg
 from app.errors import HTTPExceptionWithCode
+from app.config.db import init_db
+from app.controller import router
+
+# unused import statement to create the table
+import app.model.house_keeper
 
 
 def create_app(sv_name: str, version: str) -> FastAPI:
@@ -39,6 +44,14 @@ def create_app(sv_name: str, version: str) -> FastAPI:
     @app.get("/")
     async def root():
         return "Hello World!"
+    
+    init_db()
+
+    app.include_router(
+        router=router,
+        prefix="/api",
+        tags=["api"],
+    )
 
 
     return app
